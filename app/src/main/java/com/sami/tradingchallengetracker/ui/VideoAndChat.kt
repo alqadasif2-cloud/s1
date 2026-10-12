@@ -356,7 +356,7 @@ object CommunityCloudManager {
             }
             ensureDefaultChannelSeeded(context)
             list
-        } catch (_: Exception) {
+        } catch (e: Exception) {
             AUTHORIZED_ANDROID_USERS
         }
     }
@@ -381,7 +381,7 @@ object CommunityCloudManager {
                     )
                 ).await()
             }
-        } catch (_: Exception) {
+        } catch (e: Exception) {
         }
     }
 
@@ -429,7 +429,7 @@ object CommunityCloudManager {
                         )
                     ).await()
             }
-        } catch (_: Exception) {
+        } catch (e: Exception) {
         }
         updated
     }
@@ -489,7 +489,7 @@ object CommunityCloudManager {
                 .document(id)
                 .set(payload)
                 .await()
-        } catch (_: Exception) {
+        } catch (e: Exception) {
         }
     }
 
@@ -575,7 +575,7 @@ object CommunityCloudManager {
                     if (bitmap != null) {
                         builder.setLargeIcon(createCircularBitmap(bitmap))
                     }
-                } catch (_: Exception) {
+                } catch (e: Exception) {
                 }
             }
 
@@ -610,7 +610,7 @@ object CommunityCloudManager {
                 .setContentIntent(summaryPendingIntent)
 
             nm.notify(99999, summaryBuilder.build())
-        } catch (_: Exception) {
+        } catch (e: Exception) {
         }
     }
 
@@ -1048,12 +1048,12 @@ fun AndroidGroupChatScreen(
         }
         try {
             cm?.registerDefaultNetworkCallback(callback)
-        } catch (_: Exception) {
+        } catch (e: Exception) {
         }
         onDispose {
             try {
                 cm?.unregisterNetworkCallback(callback)
-            } catch (_: Exception) {
+            } catch (e: Exception) {
             }
         }
     }
@@ -1194,7 +1194,7 @@ fun AndroidGroupChatScreen(
                         }
                     }
                 }
-            } catch (_: Exception) {
+            } catch (e: Exception) {
             }
             val updatedIds = if (isPrivate) privateMessages.map { it.id } else channelMessages.map { it.id }
             targetIndex = updatedIds.indexOf(targetMessageId)
@@ -1265,7 +1265,7 @@ fun AndroidGroupChatScreen(
                                 try {
                                     db.collection("chat_messages").document(exp.id).delete().await()
                                     FirebaseCloudHelper.deleteCloudImage(context, exp.imageUrl, exp.storagePath)
-                                } catch (_: Exception) {
+                                } catch (e: Exception) {
                                 }
                             }
                         }
@@ -1345,7 +1345,7 @@ fun AndroidGroupChatScreen(
                     val newUrl = CommunityCloudManager.uploadUserAvatar(context, currentUser.id, uri)
                     onUserUpdated(liveUserDoc.copy(avatarUrl = newUrl))
                     Toast.makeText(context, "تم تحديث صورتك الشخصية بنجاح", Toast.LENGTH_SHORT).show()
-                } catch (_: Exception) {
+                } catch (e: Exception) {
                     alertBanner = "تعذر تحديث الصورة الشخصية."
                 } finally {
                     isUploadingAvatar = false
@@ -2535,7 +2535,7 @@ fun AndroidGroupChatScreen(
 
                                 inputText = ""
                                 selectedImageUri = null
-                            } catch (_: Exception) {
+                            } catch (e: Exception) {
                                 alertBanner = "تعذر إرسال الرسالة، يرجى التحقق من اتصال الإنترنت."
                             } finally {
                                 isSending = false
@@ -2813,7 +2813,7 @@ fun AndroidGroupChatScreen(
                                     actionReason = ""
                                     actionEvidenceUri = null
                                     supervisionModalOpen = false
-                                } catch (_: Exception) {
+                                } catch (e: Exception) {
                                     alertBanner = "تعذر تنفيذ الإجراء، حاول مرة أخرى."
                                 } finally {
                                     isExecutingAction = false

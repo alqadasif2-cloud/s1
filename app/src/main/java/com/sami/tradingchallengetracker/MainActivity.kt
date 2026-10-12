@@ -146,7 +146,7 @@ fun TradingApp(
         try {
             val pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
             pInfo.versionName ?: "1.2.0"
-        } catch (_: Exception) {
+        } catch (e: Exception) {
             "1.2.0"
         }
     }
@@ -154,7 +154,7 @@ fun TradingApp(
         try {
             val pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
             if (Build.VERSION.SDK_INT >= 28) pInfo.longVersionCode.toInt() else @Suppress("DEPRECATION") pInfo.versionCode
-        } catch (_: Exception) {
+        } catch (e: Exception) {
             10
         }
     }
@@ -226,7 +226,7 @@ fun TradingApp(
         val serviceIntent = Intent(context, CommunityNotificationService::class.java)
         try {
             context.startService(serviceIntent)
-        } catch (_: Exception) {}
+        } catch (e: Exception) {}
         if (Build.VERSION.SDK_INT >= 33) {
             val hasNotifPerm = ContextCompat.checkSelfPermission(
                 context,
@@ -1284,7 +1284,7 @@ fun DashboardContent(
                     val url = CommunityCloudManager.uploadUserAvatar(context, currentUser.id, uri)
                     onAvatarUpdated(url)
                     Toast.makeText(context, "تم تحديث صورتك الشخصية بنجاح", Toast.LENGTH_SHORT).show()
-                } catch (_: Exception) {
+                } catch (e: Exception) {
                     Toast.makeText(context, "تعذر تحديث الصورة الشخصية", Toast.LENGTH_SHORT).show()
                 } finally {
                     uploadingAvatar = false
@@ -2176,7 +2176,7 @@ fun SettingsContent(
                     val url = CommunityCloudManager.uploadUserAvatar(context, currentUser.id, uri)
                     onAvatarUpdated(url)
                     Toast.makeText(context, "تم تحديث صورتك الشخصية بنجاح", Toast.LENGTH_SHORT).show()
-                } catch (_: Exception) {
+                } catch (e: Exception) {
                     Toast.makeText(context, "تعذر تحديث الصورة الشخصية", Toast.LENGTH_SHORT).show()
                 } finally {
                     uploadingAvatar = false

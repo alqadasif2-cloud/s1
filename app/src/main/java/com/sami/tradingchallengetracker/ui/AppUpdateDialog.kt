@@ -265,7 +265,7 @@ fun AppUpdateDialog(
                                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                     }
                                     context.startActivity(intent)
-                                } catch (_: Exception) {
+                                } catch (e: Exception) {
                                     Toast.makeText(
                                         context,
                                         "تعذر فتح رابط التحميل، تأكد من وجود متصفح إنترنت",

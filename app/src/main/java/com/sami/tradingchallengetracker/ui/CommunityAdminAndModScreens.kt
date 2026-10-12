@@ -64,7 +64,7 @@ fun AndroidModeratorHomeScreen(
                     val url = CommunityCloudManager.uploadUserAvatar(context, currentUser.id, uri)
                     onAvatarUpdated(url)
                     Toast.makeText(context, "تم تحديث الصورة الشخصية بنجاح", Toast.LENGTH_SHORT).show()
-                } catch (_: Exception) {
+                } catch (e: Exception) {
                     Toast.makeText(context, "تعذر تحديث الصورة الشخصية", Toast.LENGTH_SHORT).show()
                 } finally {
                     uploadingAvatar = false
@@ -610,7 +610,7 @@ fun AndroidOwnerAdminScreen(
                                             newPassword = ""
                                             newRole = "user"
                                             showFeedback("تم إنشاء الحساب $dName بنجاح.")
-                                        } catch (_: Exception) {
+                                        } catch (e: Exception) {
                                             showFeedback("تعذر إنشاء المستخدم.", true)
                                         }
                                     }
@@ -702,7 +702,7 @@ fun AndroidOwnerAdminScreen(
                                                     showFeedback(
                                                         if (nextRole == "moderator") "تم تعيين ${u.displayName} مشرفاً" else "تم إلغاء إشراف ${u.displayName}"
                                                     )
-                                                } catch (_: Exception) {
+                                                } catch (e: Exception) {
                                                     showFeedback("تعذر تعديل الصلاحية.", true)
                                                 }
                                             }
@@ -728,7 +728,7 @@ fun AndroidOwnerAdminScreen(
                                                         .delete()
                                                         .await()
                                                     showFeedback("تم حذف المستخدم ${u.displayName}")
-                                                } catch (_: Exception) {
+                                                } catch (e: Exception) {
                                                     showFeedback("تعذر حذف المستخدم.", true)
                                                 }
                                             }
@@ -850,7 +850,7 @@ fun AndroidOwnerAdminScreen(
                                                     .await()
                                                 FirebaseCloudHelper.deleteCloudImage(context, ch.imageUrl, ch.storagePath)
                                                 showFeedback("تم حذف القناة ${ch.name}")
-                                            } catch (_: Exception) {
+                                            } catch (e: Exception) {
                                                 showFeedback("تعذر حذف القناة.", true)
                                             }
                                         }
@@ -1062,7 +1062,7 @@ fun AndroidOwnerAdminScreen(
 
                                     replyText = ""
                                     replyImageUri = null
-                                } catch (_: Exception) {
+                                } catch (e: Exception) {
                                     showFeedback("تعذر إرسال الرد.", true)
                                 } finally {
                                     isSendingReply = false
@@ -1442,7 +1442,7 @@ fun AndroidOwnerAdminScreen(
                                         .await()
                                     editingPasswordUser = null
                                     showFeedback("تم تحديث كلمة المرور بنجاح.")
-                                } catch (_: Exception) {
+                                } catch (e: Exception) {
                                     showFeedback("تعذر تحديث كلمة المرور.", true)
                                 }
                             }
@@ -1621,7 +1621,7 @@ fun AndroidOwnerAdminScreen(
 
                                 channelDialogOpen = false
                                 showFeedback(if (targetEdit != null) "تم تحديث القناة بنجاح." else "تم إنشاء القناة بنجاح.")
-                            } catch (_: Exception) {
+                            } catch (e: Exception) {
                                 showFeedback("تعذر حفظ القناة.", true)
                             } finally {
                                 isSavingChannel = false

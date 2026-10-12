@@ -359,7 +359,7 @@ object PdfExporter {
                             Intent.FLAG_GRANT_READ_URI_PERMISSION
                         )
                     }
-                } catch (_: Exception) {
+                } catch (e: Exception) {
                 }
 
                 context.startActivity(chooserIntent)

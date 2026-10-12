@@ -69,7 +69,7 @@ object FirebaseCloudHelper {
         val app = ensureInitialized(context)
         return try {
             FirebaseFirestore.getInstance(app, FIRESTORE_DB_ID)
-        } catch (_: Exception) {
+        } catch (e: Exception) {
             FirebaseFirestore.getInstance(app)
         }
     }
@@ -100,7 +100,7 @@ object FirebaseCloudHelper {
                     else -> 0f
                 }
             } ?: 0f
-        } catch (_: Exception) {
+        } catch (e: Exception) {
             0f
         }
 
@@ -113,7 +113,7 @@ object FirebaseCloudHelper {
             try {
                 val matrix = Matrix().apply { postRotate(rotationDegrees) }
                 Bitmap.createBitmap(decoded, 0, 0, decoded.width, decoded.height, matrix, true)
-            } catch (_: Exception) {
+            } catch (e: Exception) {
                 decoded
             }
         } else {
@@ -173,7 +173,7 @@ object FirebaseCloudHelper {
                 val downloadUrl = storageRef.downloadUrl.await().toString()
                 Pair(downloadUrl, storagePath)
             }
-        } catch (_: Exception) {
+        } catch (e: Exception) {
             val base64Str = Base64.encodeToString(jpegBytes, Base64.NO_WRAP)
             val dataUrl = "data:image/jpeg;base64,$base64Str"
 
@@ -211,7 +211,7 @@ object FirebaseCloudHelper {
         val match = regex.find(url) ?: return null
         return try {
             java.net.URLDecoder.decode(match.groupValues[1], "UTF-8")
-        } catch (_: Exception) {
+        } catch (e: Exception) {
             null
         }
     }
@@ -232,7 +232,7 @@ object FirebaseCloudHelper {
                 mediaByteCache[mediaId] = bytes
                 return@withContext bytes
             }
-        } catch (_: Exception) {
+        } catch (e: Exception) {
         }
         return@withContext url
     }
@@ -255,7 +255,7 @@ object FirebaseCloudHelper {
                         return@withContext bytes
                     }
                 }
-            } catch (_: Exception) {
+            } catch (e: Exception) {
             }
         }
 
@@ -264,7 +264,7 @@ object FirebaseCloudHelper {
             return@withContext try {
                 val base64Part = url.substringAfter(",")
                 Base64.decode(base64Part, Base64.DEFAULT)
-            } catch (_: Exception) {
+            } catch (e: Exception) {
                 null
             }
         }
@@ -273,7 +273,7 @@ object FirebaseCloudHelper {
         if (url.startsWith("content://") || url.startsWith("file://")) {
             return@withContext try {
                 context.contentResolver.openInputStream(Uri.parse(url))?.use { it.readBytes() }
-            } catch (_: Exception) {
+            } catch (e: Exception) {
                 null
             }
         }
@@ -284,7 +284,7 @@ object FirebaseCloudHelper {
             try {
                 val bytes = getStorage(context).reference.child(storagePath).getBytes(15L * 1024L * 1024L).await()
                 if (bytes.isNotEmpty()) return@withContext bytes
-            } catch (_: Exception) {
+            } catch (e: Exception) {
             }
         }
 
@@ -298,7 +298,7 @@ object FirebaseCloudHelper {
                     connect()
                 }
                 connection.inputStream.use { it.readBytes() }
-            } catch (_: Exception) {
+            } catch (e: Exception) {
                 null
             }
         }
@@ -370,7 +370,7 @@ object FirebaseCloudHelper {
         if (!resolvedPath.isNullOrBlank()) {
             try {
                 getStorage(context).reference.child(resolvedPath).delete().await()
-            } catch (_: Exception) {
+            } catch (e: Exception) {
             }
         }
         val mediaId = extractMediaId(imageUrl)
@@ -378,7 +378,7 @@ object FirebaseCloudHelper {
             mediaByteCache.remove(mediaId)
             try {
                 getFirestore(context).collection("media_files").document(mediaId).delete().await()
-            } catch (_: Exception) {
+            } catch (e: Exception) {
             }
         }
     }
@@ -457,7 +457,7 @@ object FirebaseCloudHelper {
                     "updatedAt" to challenge.updatedAt
                 )
             ).await()
-        } catch (_: Exception) {
+        } catch (e: Exception) {
         }
     }
 
@@ -503,7 +503,7 @@ object FirebaseCloudHelper {
                 )
             }
             Pair(challenge, trades)
-        } catch (_: Exception) {
+        } catch (e: Exception) {
             null
         }
     }
@@ -521,7 +521,7 @@ object FirebaseCloudHelper {
                 if (r > c) return true
                 if (r < c) return false
             }
-        } catch (_: Exception) {}
+        } catch (e: Exception) {}
         return false
     }
 
