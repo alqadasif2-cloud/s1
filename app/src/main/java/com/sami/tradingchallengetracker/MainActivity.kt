@@ -60,13 +60,10 @@ import com.sami.tradingchallengetracker.data.MilestoneStatus
 import com.sami.tradingchallengetracker.data.TradeEntity
 import com.sami.tradingchallengetracker.data.TradeType
 import com.sami.tradingchallengetracker.ui.*
-import com.sami.tradingchallengetracker.util.ActiveConversationTracker
 import com.sami.tradingchallengetracker.util.AndroidAppUpdateConfig
 import com.sami.tradingchallengetracker.util.CloudAsyncImage
-import com.sami.tradingchallengetracker.util.CommunityNotificationService
 import com.sami.tradingchallengetracker.util.FirebaseCloudHelper
 import com.sami.tradingchallengetracker.util.Money
-import android.content.Intent
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.Locale

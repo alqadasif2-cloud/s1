@@ -29,34 +29,17 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
-      - name: Verify or initialize signing keystore
+      - name: Build Debug & Release APK
         run: |
-          if [ ! -f app/sami-signing-key.p12 ] || ! keytool -list -keystore app/sami-signing-key.p12 -storepass samitrading -storetype PKCS12 >/dev/null 2>&1; then
-            rm -f app/sami-signing-key.p12
-            keytool -genkeypair -v \
-              -keystore app/sami-signing-key.p12 \
-              -storetype PKCS12 \
-              -storepass samitrading \
-              -keypass samitrading \
-              -alias sami \
-              -keyalg RSA \
-              -keysize 2048 \
-              -validity 10000 \
-              -dname "CN=Sami Trading Challenge, OU=Mobile, O=Sami, L=Riyadh, ST=Riyadh, C=SA"
-          fi
-
-      - name: Build Debug & Release Universal Signed APK
-        run: |
-          ./gradlew clean --no-daemon
           ./gradlew assembleDebug --no-daemon --stacktrace
           ./gradlew assembleRelease --no-daemon --stacktrace
-          mkdir -p release_apk
-          cp app/build/outputs/apk/release/*.apk release_apk/Sami-TradingChallenge-v1.2.0.apk
+          mkdir -p output_apks
+          find app/build/outputs/apk/ -name "*.apk" -exec cp {} output_apks/ \;
 
-      - name: Upload APK Artifact
+      - name: Upload APK Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Sami-TradingChallenge-APK
-          path: release_apk/Sami-TradingChallenge-v1.2.0.apk
+          name: Sami-TradingChallenge-APKs
+          path: output_apks/*.apk
           if-no-files-found: error
           retention-days: 30
