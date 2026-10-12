@@ -101,13 +101,13 @@ data class AndroidAuthUser(
 data class AndroidCommunityChannel(
     val id: String,
     val name: String,
-    val imageUrl: String?,
-    val storagePath: String?,
-    val password: String,
-    val memberIds: List<Int>,
-    val createdBy: Int,
-    val createdAt: Long,
-    val updatedAt: Long
+    val imageUrl: String? = null,
+    val storagePath: String? = null,
+    val password: String = "",
+    val memberIds: List<Int> = emptyList(),
+    val createdBy: Int = 1,
+    val createdAt: Long = System.currentTimeMillis(),
+    val updatedAt: Long = System.currentTimeMillis()
 )
 
 data class AndroidChatMessage(
@@ -1123,7 +1123,13 @@ fun AndroidGroupChatScreen(
                 selectedChannel = AndroidCommunityChannel(
                     id = targetChannelId,
                     name = "القناة",
-                    createdBy = 1
+                    imageUrl = null,
+                    storagePath = null,
+                    password = "",
+                    memberIds = emptyList(),
+                    createdBy = 1,
+                    createdAt = System.currentTimeMillis(),
+                    updatedAt = System.currentTimeMillis()
                 )
                 isPrivateChatOpen = false
             }
